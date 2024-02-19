@@ -11,6 +11,7 @@ import numpy as np
 from tqdm import tqdm
 import torch
 import wandb
+import warnings
 from pathlib import Path
 from typing import Union
 from dataclasses import dataclass, field
@@ -640,6 +641,10 @@ def train(*args, **kwargs):
     :param kwargs: Keyword arguments to pass to Trainer constructor.
     :return: Trained model.
     """
+    warnings.warn(
+        "The function train is deprecated and will be removed in future versions. Please use deepinv.training_utils.Trainer instead.",
+        DeprecationWarning,
+    )
     trainer = Trainer(*args, **kwargs)
     trained_model = trainer.train()
     return trained_model
