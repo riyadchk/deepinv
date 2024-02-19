@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trainer &mdash; deepinverse 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"tex": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}, "macros": {"forw": ["{A\\left({#1}\\right)}", 1], "noise": ["{N\\left({#1}\\right)}", 1], "inverse": ["{R\\left({#1}\\right)}", 1], "inversef": ["{R\\left({#1},{#2}\\right)}", 2], "reg": ["{g\\left({#1}\\right)}", 1], "regname": "g", "sensor": ["{\\eta\\left({#1}\\right)}", 1], "datafid": ["{f\\left({#1},{#2}\\right)}", 2], "datafidname": "f", "distance": ["{d\\left({#1},{#2}\\right)}", 2], "distancename": "d", "denoiser": ["{\\operatorname{D}_{{#2}}\\left({#1}\\right)}", 2], "denoisername": "\\operatorname{D}", "xset": "\\mathcal{X}", "yset": "\\mathcal{Y}", "group": "\\mathcal{G}", "metric": ["{d\\left({#1},{#2}\\right)}", 2], "loss": ["{\\mathcal\\left({#1}\\right)}", 1]}}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="train" href="deepinv.train.html" />
+    <link rel="prev" title="Utils" href="../deepinv.utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/deepinv_logolarge.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.physics.html">Physics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.datasets.html">Datasets</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../deepinv.utils.html">Utils</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../deepinv.utils.html#training-and-testing">Training and Testing</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Trainer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#deepinv.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="deepinv.train.html">train</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deepinv.test.html">test</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deepinv.utils.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deepinv.utils.html#tensorlist">TensorList</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deepinv.utils.html#other">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.loss.html">Loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.optim.html">Optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.pnp.html">PnP and RED algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.unfolded.html">Unfolded algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.sampling.html">Diffusion algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.multigpu.html">Using multiple GPUs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.notation.html">Math Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepinv.contributing.html">How to Contribute</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">deepinverse</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../deepinv.utils.html">Utils</a></li>
+      <li class="breadcrumb-item active">Trainer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/stubs/deepinv.Trainer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="trainer">
+<h1>Trainer<a class="headerlink" href="#trainer" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="deepinv.Trainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepinv.</span></span><span class="sig-name descname"><span class="pre">Trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model:</span> <span class="pre">~torch.nn.modules.module.Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_dataloader:</span> <span class="pre">~torch.utils.data.dataloader.DataLoader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">losses:</span> <span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_dataloader:</span> <span class="pre">~torch.utils.data.dataloader.DataLoader</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">physics:</span> <span class="pre">~deepinv.physics.forward.Physics</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer:</span> <span class="pre">~torch.optim.optimizer.Optimizer</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_clip:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheduler:</span> <span class="pre">~torch.optim.lr_scheduler.LRScheduler</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">~torch.device</span> <span class="pre">=</span> <span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ckp_interval:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_interval:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_interval:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">~pathlib.Path</span> <span class="pre">=</span> <span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsupervised:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_images:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_metrics:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wandb_vis:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wandb_setup:</span> <span class="pre">dict</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">online_measurements:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_measurements:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_grad:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ckpt_pretrained:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fact_losses:</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_plot:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deepinv/training_utils.html#Trainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deepinv.Trainer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.4/library/functions.html#object" title="(in Python v3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Trainer class for training a reconstruction network.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The losses can be chosen from <a class="reference internal" href="../deepinv.loss.html#loss"><span class="std std-ref">the libraries’ training losses</span></a>, or can be a custom loss function,
+as long as it takes as input <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">x_net,</span> <span class="pre">y,</span> <span class="pre">physics,</span> <span class="pre">model)</span></code> and returns a scalar, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is the ground
+reconstruction, <code class="docutils literal notranslate"><span class="pre">x_net</span></code> is the network reconstruction <span class="math notranslate nohighlight">\(\inversef{y, A}\)</span>,
+<code class="docutils literal notranslate"><span class="pre">y</span></code> is the measurement vector, <code class="docutils literal notranslate"><span class="pre">physics</span></code> is the forward operator
+and <code class="docutils literal notranslate"><span class="pre">model</span></code> is the reconstruction network. Note that not all inpus need to be used by the loss,
+e.g., self-supervised losses will not make use of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.0)"><em>torch.nn.Module</em></a><em>, </em><a class="reference internal" href="deepinv.models.ArtifactRemoval.html#deepinv.models.ArtifactRemoval" title="deepinv.models.ArtifactRemoval"><em>deepinv.models.ArtifactRemoval</em></a>) – Reconstruction network, which can be PnP, unrolled, artifact removal
+or any other custom reconstruction network.</p></li>
+<li><p><strong>train_dataloader</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/data.html#torch.utils.data.DataLoader" title="(in PyTorch v2.0)"><em>torch.utils.data.DataLoader</em></a>) – Train dataloader.</p></li>
+<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) – Number of training epochs.</p></li>
+<li><p><strong>losses</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.0)"><em>torch.nn.Module</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#list" title="(in Python v3.4)"><em>list</em></a><em> of </em><a class="reference external" href="https://pytorch.org/docs/2.0/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.0)"><em>torch.nn.Module</em></a>) – Loss or list of losses used for training the model.</p></li>
+<li><p><strong>eval_dataloader</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/data.html#torch.utils.data.DataLoader" title="(in PyTorch v2.0)"><em>torch.utils.data.DataLoader</em></a>) – Evaluation dataloader.</p></li>
+<li><p><strong>physics</strong> (<a class="reference internal" href="deepinv.physics.Physics.html#deepinv.physics.Physics" title="deepinv.physics.Physics"><em>deepinv.physics.Physics</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#list" title="(in Python v3.4)"><em>list</em></a><em>[</em><a class="reference internal" href="deepinv.physics.Physics.html#deepinv.physics.Physics" title="deepinv.physics.Physics"><em>deepinv.physics.Physics</em></a><em>]</em>) – Forward operator(s)
+used by the reconstruction network at train time.</p></li>
+<li><p><strong>optimizer</strong> (<em>torch.nn.optim</em>) – Torch optimizer for training the network.</p></li>
+<li><p><strong>grad_clip</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#float" title="(in Python v3.4)"><em>float</em></a>) – Gradient clipping value for the optimizer. If None, no gradient clipping is performed.</p></li>
+<li><p><strong>scheduler</strong> (<em>torch.nn.optim</em>) – Torch scheduler for changing the learning rate across iterations.</p></li>
+<li><p><strong>device</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/tensor_attributes.html#torch.device" title="(in PyTorch v2.0)"><em>torch.device</em></a>) – gpu or cpu.</p></li>
+<li><p><strong>ckp_interval</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) – The model is saved every <code class="docutils literal notranslate"><span class="pre">ckp_interval</span></code> epochs.</p></li>
+<li><p><strong>eval_interval</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) – Number of epochs between each evaluation of the model on the evaluation set.</p></li>
+<li><p><strong>img_interval</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) – Frequency of plotting images to wandb during test evaluation (at the start of each epoch)</p></li>
+<li><p><strong>save_path</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) – Directory in which to save the trained model.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) – Output training progress information in the console.</p></li>
+<li><p><strong>unsupervised</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) – Train an unsupervised network, i.e., uses only measurement vectors y for training.</p></li>
+<li><p><strong>plot_images</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) – Plots reconstructions every <code class="docutils literal notranslate"><span class="pre">ckp_interval</span></code> epochs.</p></li>
+<li><p><strong>wandb_vis</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) – Use Weights &amp; Biases visualization, see <a class="reference external" href="https://wandb.ai/">https://wandb.ai/</a> for more details.</p></li>
+<li><p><strong>wandb_setup</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#dict" title="(in Python v3.4)"><em>dict</em></a>) – Dictionary with the setup for wandb, see <a class="reference external" href="https://docs.wandb.ai/quickstart">https://docs.wandb.ai/quickstart</a> for more details.</p></li>
+<li><p><strong>online_measurements</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) – Generate the measurements in an online manner at each iteration by calling
+<code class="docutils literal notranslate"><span class="pre">physics(x)</span></code>. This results in a wider range of measurements if the physics’ parameters, such as
+parameters of the forward operator or noise realizations, can change between each sample; these are updated
+with the <code class="docutils literal notranslate"><span class="pre">physics.reset()</span></code> method. If <code class="docutils literal notranslate"><span class="pre">online_measurements=False</span></code>, the measurements are loaded from the training dataset</p></li>
+<li><p><strong>plot_measurements</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) – Plot the measurements y. default=True.</p></li>
+<li><p><strong>check_grad</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) – Check the gradient norm at each iteration.</p></li>
+<li><p><strong>ckpt_pretrained</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) – path of the pretrained checkpoint. If None, no pretrained checkpoint is loaded.</p></li>
+<li><p><strong>fact_losses</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#list" title="(in Python v3.4)"><em>list</em></a>) – List of factors to multiply the losses. If None, all losses are multiplied by 1.</p></li>
+<li><p><strong>freq_plot</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) – Frequency of plotting images to wandb during train evaluation (at the end of each epoch). If 1, plots at each epoch.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="deepinv.Trainer.backward_pass">
+<span class="sig-name descname"><span class="pre">backward_pass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deepinv/training_utils.html#Trainer.backward_pass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deepinv.Trainer.backward_pass" title="Link to this definition"></a></dt>
+<dd><p>Perform the backward pass.</p>
+<p>It computes the losses and the total loss, and performs the backward pass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) – Current dataloader index.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><em>torch.Tensor</em></a>) – Ground truth.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><em>torch.Tensor</em></a>) – Measurement.</p></li>
+<li><p><strong>x_net</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><em>torch.Tensor</em></a>) – Network reconstruction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepinv.Trainer.batch_eval_metric">
+<span class="sig-name descname"><span class="pre">batch_eval_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deepinv/training_utils.html#Trainer.batch_eval_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deepinv.Trainer.batch_eval_metric" title="Link to this definition"></a></dt>
+<dd><p>Perform evaluation at each iteration.</p>
+<p>It computes the PSNR of the network reconstruction and logs the training metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><em>torch.Tensor</em></a>) – Ground truth.</p></li>
+<li><p><strong>x_net</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><em>torch.Tensor</em></a>) – Network reconstruction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepinv.Trainer.check_clip_grad">
+<span class="sig-name descname"><span class="pre">check_clip_grad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deepinv/training_utils.html#Trainer.check_clip_grad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deepinv.Trainer.check_clip_grad" title="Link to this definition"></a></dt>
+<dd><p>Check the gradient norm and perform gradient clipping if necessary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepinv.Trainer.epoch_eval">
+<span class="sig-name descname"><span class="pre">epoch_eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deepinv/training_utils.html#Trainer.epoch_eval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deepinv.Trainer.epoch_eval" title="Link to this definition"></a></dt>
+<dd><p>Perform evaluation at the end of each epoch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) – Current epoch.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepinv.Trainer.epoch_wandb_vis">
+<span class="sig-name descname"><span class="pre">epoch_wandb_vis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">physics_cur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deepinv/training_utils.html#Trainer.epoch_wandb_vis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deepinv.Trainer.epoch_wandb_vis" title="Link to this definition"></a></dt>
+<dd><p>Perform visualization at the end of each epoch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) – Current epoch.</p></li>
+<li><p><strong>physics_cur</strong> (<a class="reference internal" href="deepinv.physics.Physics.html#deepinv.physics.Physics" title="deepinv.physics.Physics"><em>deepinv.physics.Physics</em></a>) – Current physics operator.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><em>torch.Tensor</em></a>) – Ground truth.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><em>torch.Tensor</em></a>) – Measurement.</p></li>
+<li><p><strong>x_net</strong> (<a class="reference external" href="https://pytorch.org/docs/2.0/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><em>torch.Tensor</em></a>) – Network reconstruction.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepinv.Trainer.setup_train">
+<span class="sig-name descname"><span class="pre">setup_train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deepinv/training_utils.html#Trainer.setup_train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deepinv.Trainer.setup_train" title="Link to this definition"></a></dt>
+<dd><p>Setup the training process.</p>
+<p>It initializes the wandb logging, the different metrics, the save path, the physics and dataloaders,
+and the pretrained checkpoint if given.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepinv.Trainer.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deepinv/training_utils.html#Trainer.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deepinv.Trainer.train" title="Link to this definition"></a></dt>
+<dd><p>Train the model.</p>
+<p>It performs the training process, including the setup, the evaluation, the forward and backward passes,
+and the visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trained model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepinv.Trainer.train_batch">
+<span class="sig-name descname"><span class="pre">train_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deepinv/training_utils.html#Trainer.train_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deepinv.Trainer.train_batch" title="Link to this definition"></a></dt>
+<dd><p>Train a batch.</p>
+<p>It performs the forward pass, the backward pass, and the evaluation at each iteration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) – Current epoch.</p></li>
+<li><p><strong>progress_bar</strong> (<em>tqdm</em>) – Progress bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The current physics operator, the ground truth, the measurement, and the network reconstruction.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="sphx-glr-backref-deepinv-trainer"></span></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../deepinv.utils.html" class="btn btn-neutral float-left" title="Utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="deepinv.train.html" class="btn btn-neutral float-right" title="train" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, DeepInv.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSEKFKYSGR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-NSEKFKYSGR', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>
